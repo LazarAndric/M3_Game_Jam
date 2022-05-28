@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     private void updatePosition(Vector2 position)
     {
-
+        gameObject.transform.position += new Vector3(position.x, -position.y) * Time.deltaTime;
     }
 
     private void pressUltimate()
