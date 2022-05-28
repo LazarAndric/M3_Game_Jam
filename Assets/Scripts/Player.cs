@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Joystick))]
 public class Player : MonoBehaviour
 {
+    public bool IsPressed;
     private Hero Hero;
     private Joystick Joystick;
     private void Awake()
@@ -34,7 +35,7 @@ public class Player : MonoBehaviour
 
     private void pressUltimate()
     {
-        Debug.Log("Ultimate");
+        IsPressed = true;
     }
 
     public void pressActive()

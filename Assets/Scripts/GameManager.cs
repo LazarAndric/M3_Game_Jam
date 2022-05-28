@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public Action ActivateUltimate;
+    public int DistanceForUltimate;
     public Player Player1;
     public Player Player2;
     [Range(0,100)]
@@ -22,7 +24,17 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
-
+    }
+    private void Update()
+    {
+        if(Energy==100 && Player1.IsPressed && Player2.IsPressed)
+        {
+            if(Vector2.Distance(Player1.transform.position, Player2.transform.position) < DistanceForUltimate)
+            {
+                Energy = 0;
+                Debug.Log("Ultimate");
+            }
+        }
     }
     private void Start()
     {
