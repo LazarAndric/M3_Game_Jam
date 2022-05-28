@@ -29,5 +29,11 @@ public class Joystick : MonoBehaviour
         var x=Input.GetAxis(AxisHorizontal);
         var y=Input.GetAxis(AxisVertical);
         OnUpdateAxis?.Invoke(new Vector2(x, y));
+
+
+        if (Input.GetKeyUp(Ultimate))
+        {
+            OnUltimate.Invoke();
+        }
     }
 }
