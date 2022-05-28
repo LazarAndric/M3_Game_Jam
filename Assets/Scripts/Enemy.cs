@@ -13,11 +13,6 @@ public class Enemy : MonoBehaviour
     }
     public int Health;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Die"))
-            Destroy(gameObject);
-    }
     private void Update()
     {
         transform.position += Direction * Speed * Time.deltaTime;

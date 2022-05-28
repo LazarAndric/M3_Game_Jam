@@ -16,10 +16,10 @@ public class Player : MonoBehaviour
     public void initPlayer(Hero hero)
     {
         Hero = hero;
-        Joystick.OnActive += pressActive;
-        Joystick.OnUltimate += pressUltimate;
-        Joystick.OnUpdateAxis += updatePosition;
-        Joystick.OffUltimate += pressOffUltimate;
+        Joystick.OnActive = pressActive;
+        Joystick.OnUltimate = pressUltimate;
+        Joystick.OnUpdateAxis = updatePosition;
+        Joystick.OffUltimate = pressOffUltimate;
     }
 
     private void pressOffUltimate()
@@ -52,6 +52,14 @@ public class Player : MonoBehaviour
         {
             Fire.Instance.FireOn(transform, Vector2.up, 5);
             Debug.Log("Abbility");
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Enemy"))
+        {
+            GameManager.Instance.Life--;
         }
     }
 

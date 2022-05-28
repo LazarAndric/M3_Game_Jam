@@ -23,17 +23,12 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag(EnemyTag))
-    //    {
-    //        collision.GetComponent<Enemy>().Health -= Damage;
-    //        Destroy(gameObject);
-    //    }
-    //    else if (collision.CompareTag(DissapearTag))
-    //    {
-    //        Destroy(gameObject);
-    //    }
-
-    //}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(EnemyTag))
+        {
+            collision.GetComponent<Enemy>().Health -= Damage;
+            Destroy(gameObject);
+        }
+    }
 }

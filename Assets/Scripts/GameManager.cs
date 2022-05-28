@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        if(Life<=0)
+        {
+            die();
+        }
         if(Energy==100 && Player1.IsPressed && Player2.IsPressed)
         {
             if(Vector2.Distance(Player1.transform.position, Player2.transform.position) < DistanceForUltimate)
@@ -44,6 +48,13 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    private void die()
+    {
+        Time.timeScale = 0;
+        Debug.Log("you are dead!");
+    }
+
     public void initPlayers(Hero heroClass, Hero heroClass1)
     {
         Life += heroClass.Passive.ExtraLife + heroClass.Passive.ExtraLife;
