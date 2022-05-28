@@ -4,9 +4,7 @@ using UnityEngine;
 public class SpellHolder : MonoBehaviour
 {
     [SerializeField]
-    private List<Spell> Spells = new List<Spell>();
-    [SerializeField]
-    private Spell Ultimate;
+    private List<SpellsAbillity> Spells = new List<SpellsAbillity>();
 
-    public Spell getSpell(SpellType type)=> Spells.Find(x=>x.SpellType.Equals(type));
+    public Spell getSpell(SpellType type)=> Spells.Find(x=>x.SpellType.Equals(type)).Spell;
 }

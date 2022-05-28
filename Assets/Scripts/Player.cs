@@ -2,15 +2,17 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Joystick))]
+[RequireComponent(typeof(SpellHolder))]
 public class Player : MonoBehaviour
 {
-    public SpellHolder SpellHolder;
+    private SpellHolder SpellHolder;
     public bool IsPressed;
     private Hero Hero;
     private Joystick Joystick;
     private void Awake()
     {
         Joystick = GetComponent<Joystick>();
+        SpellHolder = GetComponent<SpellHolder>();
     }
     public void initPlayer(HeroClass hClass)
     {

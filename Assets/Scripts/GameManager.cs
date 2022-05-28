@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(UltimateSpellHolder))]
 public class GameManager : MonoBehaviour
 {
     public Action ActivateUltimate;
@@ -63,8 +64,7 @@ public enum SpellType
 {
     BASIC_ATTACK,
     ACTIVE,
-    PASSIVE,
-    ULTIMATE
+    PASSIVE
 }
 public class Hero
 {
@@ -88,7 +88,6 @@ public class Hero
 [System.Serializable]
 public class Spell
 {
-    public SpellType SpellType;
     public string Name;
     public string Description;
     public Texture2D SpellIcon;

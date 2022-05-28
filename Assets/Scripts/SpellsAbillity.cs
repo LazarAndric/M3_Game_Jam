@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class UltimateSpell
+public class SpellsAbillity
 {
-    public HeroClass Class;
-    public HeroClass Class1;
+    public SpellType SpellType;
     public Spell Spell;
-    
+
 }
