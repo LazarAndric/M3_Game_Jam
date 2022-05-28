@@ -26,10 +26,18 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        Player1.initPlayer(HeroClass.ADC);
+        Player2.initPlayer(HeroClass.SUP);
     }
     public bool isEnoughEnergy(int energy)
     {
-        return Energy >= energy;
+        bool isEnough = false;
+        if (Energy >= energy)
+        {
+            Energy -= energy;
+            isEnough = true;
+        }
+        return isEnough;
     }
 }
 public enum HeroClass
@@ -53,19 +61,14 @@ public class Hero
 
     public Spell Passive;
     public Spell Active;
-    public Spell Ultimate;
 
-    public Hero(string name, string description, Texture2D classIcon, Spell passive, Spell active, Spell ultimate)
+    public Hero(string name, string description, Texture2D classIcon, Spell passive, Spell active)
     {
         Name = name;
         Description = description;
         ClassIcon = classIcon;
         Passive = passive;
         Active = active;
-        Ultimate = ultimate;
-    }
-    public void castSpell(Spell spell)
-    {
     }
 }
 [System.Serializable]

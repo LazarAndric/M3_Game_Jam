@@ -12,9 +12,10 @@ public class Player : MonoBehaviour
     }
     public void initPlayer(HeroClass hClass)
     {
-        Hero.Active = SpellHolder.Instance.getSpell(SpellType.ACTIVE, hClass);
-        Hero.Passive = SpellHolder.Instance.getSpell(SpellType.PASSIVE, hClass);
-        Hero.Ultimate = SpellHolder.Instance.getSpell(SpellType.ULTIMATE, hClass);
+        var active= SpellHolder.Instance.getSpell(SpellType.ACTIVE, hClass);
+        var passive = SpellHolder.Instance.getSpell(SpellType.PASSIVE, hClass);
+        Hero = new Hero("ASD", "asdf", new Texture2D(20, 20), active, passive);
+        //SpellHolder.Instance.getSpell(SpellType.ULTIMATE, hClass);
         Joystick.OnActive += pressActive;
         Joystick.OnUltimate += pressUltimate;
         Joystick.OnUpdateAxis += updatePosition;
@@ -40,9 +41,8 @@ public class Player : MonoBehaviour
     {
         if (GameManager.Instance.isEnoughEnergy(Hero.Active.Damage))
         {
-            Hero.castSpell(Hero.Active);
+            Debug.Log("Abbility");
         }
-        Debug.Log("Abbility");
     }
 
 }
