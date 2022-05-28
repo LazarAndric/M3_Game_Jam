@@ -2,7 +2,6 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Joystick))]
-[RequireComponent(typeof(SpellHolder))]
 public class Player : MonoBehaviour
 {
     private SpellHolder SpellHolder;
@@ -14,12 +13,9 @@ public class Player : MonoBehaviour
         Joystick = GetComponent<Joystick>();
         SpellHolder = GetComponent<SpellHolder>();
     }
-    public void initPlayer(HeroClass hClass)
+    public void initPlayer(Hero hero)
     {
-        var active= SpellHolder.getSpell(SpellType.ACTIVE);
-        var passive = SpellHolder.getSpell(SpellType.PASSIVE);
-        var basic = SpellHolder.getSpell(SpellType.BASIC_ATTACK);
-        Hero = new Hero("ASD", "asdf", new Texture2D(20, 20), basic, passive, active);
+        Hero = hero;
         Joystick.OnActive += pressActive;
         Joystick.OnUltimate += pressUltimate;
         Joystick.OnUpdateAxis += updatePosition;

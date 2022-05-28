@@ -6,6 +6,7 @@ using UnityEngine;
 public class SpellsAbillity
 {
     public SpellType SpellType;
+    public HeroClass Class;
     public Spell Spell;
 
 }
