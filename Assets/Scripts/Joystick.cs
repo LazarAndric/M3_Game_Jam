@@ -4,6 +4,7 @@ using UnityEngine;
 public class Joystick : MonoBehaviour
 {
     public Action OnUltimate;
+    public Action OffUltimate;
     public Action OnActive;
     public Action<Vector2> OnUpdateAxis;
 
@@ -26,14 +27,14 @@ public class Joystick : MonoBehaviour
         {
             OnUltimate?.Invoke();
         }
+        else if (Input.GetKeyUp(Ultimate))
+        {
+            OffUltimate?.Invoke();
+        }
         var x=Input.GetAxis(AxisHorizontal);
         var y=Input.GetAxis(AxisVertical);
         OnUpdateAxis?.Invoke(new Vector2(x, y));
 
 
-        if (Input.GetKeyUp(Ultimate))
-        {
-            OnUltimate.Invoke();
-        }
     }
 }

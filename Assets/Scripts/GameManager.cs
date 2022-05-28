@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public int DistanceForUltimate;
     public Player Player1;
     public Player Player2;
-    [Range(0,100)]
+    [Range(0,6)]
     public int Life;
     [Range(0, 100)]
     public int Shield;
@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
+    }
+    private void Start()
+    {
+        initPlayers(Heroes[0], Heroes[1]);
     }
     private void Update()
     {

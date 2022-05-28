@@ -19,19 +19,26 @@ public class Player : MonoBehaviour
         Joystick.OnActive += pressActive;
         Joystick.OnUltimate += pressUltimate;
         Joystick.OnUpdateAxis += updatePosition;
+        Joystick.OffUltimate += pressOffUltimate;
     }
+
+    private void pressOffUltimate()
+    {
+        IsPressed = false;
+    }
+
     private void OnDisable()
     {
         Joystick.OnActive -= pressActive;
         Joystick.OnUltimate -= pressUltimate;
         Joystick.OnUpdateAxis -= updatePosition;
+        Joystick.OffUltimate += pressOffUltimate;
     }
 
     private void updatePosition(Vector2 position)
     {
-        var newV2 = gameObject.transform.position + new Vector3(position.x, -position.y) * Time.deltaTime;
-
-        gameObject.transform.position = BoundingBox.Instance.IsItBound(newV2) ? newV2 : gameObject.transform.position;
+        Vector2 newV2 = new Vector2(transform.position.x, transform.position.y) + position;
+        gameObject.transform.position = BoundingBox.Instance.IsItBound(newV2) ? newV2 : transform.position;
     }
 
     private void pressUltimate()
@@ -43,6 +50,7 @@ public class Player : MonoBehaviour
     {
         if (GameManager.Instance.isEnoughEnergy(Hero.Active.Damage))
         {
+            Fire.Instance.FireOn(transform, Vector2.up, 5);
             Debug.Log("Abbility");
         }
     }

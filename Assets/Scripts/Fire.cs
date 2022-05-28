@@ -5,6 +5,8 @@ using UnityEngine;
 public class Fire : MonoBehaviour
 {
     public static Fire Instance;
+    public string EnemyTag;
+    public string DissapearingTag;
     private void Awake()
     {
         if (Instance == null)
@@ -13,21 +15,12 @@ public class Fire : MonoBehaviour
         }
     }
 
-    public GameObject bullet;
+    public Bullet bullet;
 
-    public void FireOn()
+    public void FireOn(Transform parent, Vector2 direction, int speed)
     {
-        var up = gameObject.transform.up * Time.deltaTime * 0.1f;
-        
-        Instantiate(bullet, transform);
+        var b = Instantiate(bullet);
+        b.transform.position = parent.position;
+        b.initBullet(speed, direction, EnemyTag, DissapearingTag, 10);
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            FireOn();
-        }
-    }
-
 }
