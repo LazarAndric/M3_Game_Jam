@@ -30,7 +30,9 @@ public class Player : MonoBehaviour
 
     private void updatePosition(Vector2 position)
     {
-        gameObject.transform.position += new Vector3(position.x, -position.y) * Time.deltaTime;
+        var newV2 = gameObject.transform.position + new Vector3(position.x, -position.y) * Time.deltaTime;
+
+        gameObject.transform.position = BoundingBox.Instance.IsItBound(newV2) ? newV2 : gameObject.transform.position;
     }
 
     private void pressUltimate()
