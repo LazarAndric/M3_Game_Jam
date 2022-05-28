@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
             {
                 Energy = 0;
                 Debug.Log("Ultimate");
+                Player1.IsPressed = false;
+                Player2.IsPressed = false;
             }
         }
     }
@@ -59,6 +61,7 @@ public enum HeroClass
 }
 public enum SpellType
 {
+    BASIC_ATTACK,
     ACTIVE,
     PASSIVE,
     ULTIMATE
@@ -69,11 +72,11 @@ public class Hero
     public string Description;
     public Texture2D ClassIcon;
 
-
+    public Spell BasicAttack;
     public Spell Passive;
     public Spell Active;
 
-    public Hero(string name, string description, Texture2D classIcon, Spell passive, Spell active)
+    public Hero(string name, string description, Texture2D classIcon,Spell BasicAttack, Spell passive, Spell active)
     {
         Name = name;
         Description = description;
@@ -85,7 +88,6 @@ public class Hero
 [System.Serializable]
 public class Spell
 {
-    public HeroClass HeroClass;
     public SpellType SpellType;
     public string Name;
     public string Description;

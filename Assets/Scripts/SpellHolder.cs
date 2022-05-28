@@ -3,14 +3,10 @@ using UnityEngine;
 
 public class SpellHolder : MonoBehaviour
 {
-    public static SpellHolder Instance;
-    private void Awake()
-    {
-        if (Instance == null)
-            Instance = this;
-    }
     [SerializeField]
     private List<Spell> Spells = new List<Spell>();
+    [SerializeField]
+    private Spell Ultimate;
 
-    public Spell getSpell(SpellType type, HeroClass hClass)=> Spells.Find(x => x.HeroClass.Equals(hClass) && x.SpellType.Equals(type));
+    public Spell getSpell(SpellType type)=> Spells.Find(x=>x.SpellType.Equals(type));
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Joystick))]
 public class Player : MonoBehaviour
 {
+    public SpellHolder SpellHolder;
     public bool IsPressed;
     private Hero Hero;
     private Joystick Joystick;
@@ -13,10 +14,10 @@ public class Player : MonoBehaviour
     }
     public void initPlayer(HeroClass hClass)
     {
-        var active= SpellHolder.Instance.getSpell(SpellType.ACTIVE, hClass);
-        var passive = SpellHolder.Instance.getSpell(SpellType.PASSIVE, hClass);
-        Hero = new Hero("ASD", "asdf", new Texture2D(20, 20), active, passive);
-        //SpellHolder.Instance.getSpell(SpellType.ULTIMATE, hClass);
+        var active= SpellHolder.getSpell(SpellType.ACTIVE);
+        var passive = SpellHolder.getSpell(SpellType.PASSIVE);
+        var basic = SpellHolder.getSpell(SpellType.BASIC_ATTACK);
+        Hero = new Hero("ASD", "asdf", new Texture2D(20, 20), basic, passive, active);
         Joystick.OnActive += pressActive;
         Joystick.OnUltimate += pressUltimate;
         Joystick.OnUpdateAxis += updatePosition;
