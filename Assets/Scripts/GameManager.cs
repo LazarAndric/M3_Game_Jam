@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     public int Energy;
     public static GameManager Instance;
     public Dictionary<HeroClass, Hero> ClassHeroPair = new Dictionary<HeroClass, Hero>();
-    public List<Spell> Spells = new List<Spell>();
     private void Awake()
     {
         if (Instance == null)
