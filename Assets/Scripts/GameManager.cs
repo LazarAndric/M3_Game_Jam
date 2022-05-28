@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(UltimateSpellHolder))]
 public class GameManager : MonoBehaviour
 {
     public Action ActivateUltimate;
@@ -11,13 +12,15 @@ public class GameManager : MonoBehaviour
     public Player Player1;
     public Player Player2;
     [Range(0,100)]
-    public int Health;
+    public int Life;
     [Range(0, 100)]
     public int Shield;
     [Range(0, 100)]
     public int Energy;
+    [Range(0, 10)]
+    public int MovemnetSpeed;
     public static GameManager Instance;
-    public Dictionary<HeroClass, Hero> ClassHeroPair = new Dictionary<HeroClass, Hero>();
+    public List<Hero> Heroes = new List<Hero>();
     private void Awake()
     {
         if (Instance == null)
@@ -32,13 +35,21 @@ public class GameManager : MonoBehaviour
             {
                 Energy = 0;
                 Debug.Log("Ultimate");
+                Player1.IsPressed = false;
+                Player2.IsPressed = false;
             }
         }
     }
-    private void Start()
+    public void initPlayers(Hero heroClass, Hero heroClass1)
     {
-        Player1.initPlayer(HeroClass.ADC);
-        Player2.initPlayer(HeroClass.SUP);
+        Life += heroClass.Passive.ExtraLife + heroClass.Passive.ExtraLife;
+        MovemnetSpeed += heroClass.Passive.MovementSpeed + heroClass1.Passive.MovementSpeed;
+        var shield = heroClass.Passive.Sheild + heroClass1.Passive.Sheild;
+        if(shield!=0)
+            //Start shield
+
+        Player1.initPlayer(heroClass);
+        Player2.initPlayer(heroClass1);
     }
     public bool isEnoughEnergy(int energy)
     {
@@ -59,21 +70,22 @@ public enum HeroClass
 }
 public enum SpellType
 {
+    BASIC_ATTACK,
     ACTIVE,
-    PASSIVE,
-    ULTIMATE
+    PASSIVE
 }
+[System.Serializable]
 public class Hero
 {
     public string Name;
     public string Description;
     public Texture2D ClassIcon;
 
-
+    public Spell BasicAttack;
     public Spell Passive;
     public Spell Active;
 
-    public Hero(string name, string description, Texture2D classIcon, Spell passive, Spell active)
+    public Hero(string name, string description, Texture2D classIcon,Spell BasicAttack, Spell passive, Spell active)
     {
         Name = name;
         Description = description;
@@ -85,15 +97,21 @@ public class Hero
 [System.Serializable]
 public class Spell
 {
-    public HeroClass HeroClass;
-    public SpellType SpellType;
     public string Name;
     public string Description;
     public Texture2D SpellIcon;
     public int Damage;
     public int EnergyCost;
-    public Spell(string name, string description, Texture2D spellIcon, int damage, int energyCost)
+    public int Sheild;
+    public int MovementSpeed;
+    public int ExtraLife;
+    public int Collider;
+
+    public Spell(int movementSpeed, string name, string description, Texture2D spellIcon, int damage, int energyCost, int shield, int extraLife)
     {
+        ExtraLife = extraLife;
+        MovementSpeed = movementSpeed;
+        Sheild = shield;
         Name = name;
         Description = description;
         SpellIcon = spellIcon;

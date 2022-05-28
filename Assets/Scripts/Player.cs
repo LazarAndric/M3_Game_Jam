@@ -4,19 +4,18 @@ using UnityEngine;
 [RequireComponent(typeof(Joystick))]
 public class Player : MonoBehaviour
 {
+    private SpellHolder SpellHolder;
     public bool IsPressed;
     private Hero Hero;
     private Joystick Joystick;
     private void Awake()
     {
         Joystick = GetComponent<Joystick>();
+        SpellHolder = GetComponent<SpellHolder>();
     }
-    public void initPlayer(HeroClass hClass)
+    public void initPlayer(Hero hero)
     {
-        var active= SpellHolder.Instance.getSpell(SpellType.ACTIVE, hClass);
-        var passive = SpellHolder.Instance.getSpell(SpellType.PASSIVE, hClass);
-        Hero = new Hero("ASD", "asdf", new Texture2D(20, 20), active, passive);
-        //SpellHolder.Instance.getSpell(SpellType.ULTIMATE, hClass);
+        Hero = hero;
         Joystick.OnActive += pressActive;
         Joystick.OnUltimate += pressUltimate;
         Joystick.OnUpdateAxis += updatePosition;
