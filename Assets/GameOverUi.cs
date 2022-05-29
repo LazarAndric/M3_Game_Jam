@@ -15,6 +15,7 @@ public class GameOverUi : MonoBehaviour
     public void PlayAgain()
     {
 
+
     }
     public void MainMeni()
     {
