@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class Joystick : MonoBehaviour
 {
+    public Action OnBasic;
     public Action OnUltimate;
     public Action OffUltimate;
     public Action OnActive;
     public Action<Vector2> OnUpdateAxis;
 
+    [SerializeField]
+    private KeyCode BasicAttack;
     [SerializeField]
     private KeyCode Active;
     [SerializeField]
@@ -19,7 +22,11 @@ public class Joystick : MonoBehaviour
 
     public void updateJoystick()
     {
-        if (Input.GetKeyDown(Active))
+        if (Input.GetKeyDown(BasicAttack))
+        {
+            OnBasic?.Invoke();
+        }
+        else if (Input.GetKeyDown(Active))
         {
             OnActive?.Invoke();
         }

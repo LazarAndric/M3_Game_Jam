@@ -6,22 +6,33 @@ using UnityEngine.UI;
 
 public class UiHandler : MonoBehaviour
 {
+    public static UiHandler Instance;
     public Slider energyBar;
     public Text score;
     public GameObject lifeBar;
     public GameObject life;
     public GameObject shield;
 
-    public void AddLife()
+    private void Awake()
     {
-        var createImage = Instantiate(life) as GameObject;
-        createImage.transform.SetParent(lifeBar.transform, false);
+        if (Instance == null)
+            Instance = this;
+    }
+    public void AddLife(int numberOf)
+    {
+        for (int i = 0; i < numberOf; i++)
+        {
+            var createImage = Instantiate(life) as GameObject;
+            createImage.transform.SetParent(lifeBar.transform, false);
+        }
     }
 
-    public void AddShield()
+    public void AddShield(int numberOf)
     {
-        var createImage = Instantiate(shield) as GameObject;
-        createImage.transform.SetParent(lifeBar.transform, false);
+        for (int i=0;i< numberOf; i++) {
+            var createImage = Instantiate(shield) as GameObject;
+            createImage.transform.SetParent(lifeBar.transform, false);
+        }
     }
 
     public void RemuveLife()
@@ -36,16 +47,7 @@ public class UiHandler : MonoBehaviour
     void Update()
     {
         energyBar.value = GameManager.Instance.Energy;
-        score.text = "score123";
-
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            AddLife();
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            RemuveLife();
-        }
+        score.text = GameManager.Instance.Score.ToString();
 
     }
 }

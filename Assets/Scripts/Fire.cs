@@ -15,9 +15,9 @@ public class Fire : MonoBehaviour
         }
     }
 
-    public void FireOn(Bullet bullet, Transform parent, Vector2 direction, int speed)
+    public void FireOn(Bullet obj, Transform parent, Vector2 direction, int speed)
     {
-        var b = Instantiate(bullet);
+        var b = Instantiate(obj);
         b.transform.position = parent.position;
         b.initBullet(speed, direction, EnemyTag, DissapearingTag, 10);
     }

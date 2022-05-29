@@ -13,8 +13,9 @@ public class GameManager : MonoBehaviour
     public Player Player2;
     [Range(0,6)]
     public int Life;
-    [Range(0, 100)]
+    [Range(0, 2)]
     public int Shield;
+    public int Score;
     [Range(0, 100)]
     public int Energy;
     [Range(0, 10)]
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        initPlayers(Heroes[0], Heroes[1]);
+        initPlayers(5,3,Heroes[0], Heroes[1]);
     }
     private void Update()
     {
@@ -55,13 +56,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("you are dead!");
     }
 
-    public void initPlayers(Hero heroClass, Hero heroClass1)
+    public void initPlayers(int speed, int lifes, Hero heroClass, Hero heroClass1)
     {
+        MovemnetSpeed = speed;
+        Life = lifes;
         Life += heroClass.Passive.ExtraLife + heroClass.Passive.ExtraLife;
+        Energy+=heroClass.Passive.Ener
+        UiHandler.Instance.AddLife(Life);
         MovemnetSpeed += heroClass.Passive.MovementSpeed + heroClass1.Passive.MovementSpeed;
-        var shield = heroClass.Passive.Sheild + heroClass1.Passive.Sheild;
-        if(shield!=0)
-            //Start shield
+        Shield = heroClass.Passive.Sheild + heroClass1.Passive.Sheild;
+        if (Shield != 0)
+            UiHandler.Instance.AddShield(Shield);
 
         Player1.initPlayer(heroClass);
         Player2.initPlayer(heroClass1);
@@ -95,7 +100,7 @@ public class Hero
     public string Name;
     public string Description;
     public Texture2D ClassIcon;
-    public Sprite PlayerLook;
+    public Sprite Sprite;
 
     public Spell BasicAttack;
     public Spell Passive;
@@ -115,10 +120,11 @@ public class Spell
 {
     public string Name;
     public string Description;
-    public Bullet Bullet;
     public Texture2D SpellIcon;
+    public Bullet Sprite;
     public int Damage;
     public int EnergyCost;
+    public int Energy;
     public int Sheild;
     public int MovementSpeed;
     public int ExtraLife;
