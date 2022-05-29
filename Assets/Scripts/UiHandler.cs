@@ -10,10 +10,17 @@ public class UiHandler : MonoBehaviour
     public Text score;
     public GameObject lifeBar;
     public GameObject life;
+    public GameObject shield;
 
     public void AddLife()
     {
         var createImage = Instantiate(life) as GameObject;
+        createImage.transform.SetParent(lifeBar.transform, false);
+    }
+
+    public void AddShield()
+    {
+        var createImage = Instantiate(shield) as GameObject;
         createImage.transform.SetParent(lifeBar.transform, false);
     }
 

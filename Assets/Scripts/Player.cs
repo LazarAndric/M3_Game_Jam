@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Joystick))]
 public class Player : MonoBehaviour
 {
+    public SpriteRenderer SpriteRenderer;
     private SpellHolder SpellHolder;
     public bool IsPressed;
     private Hero Hero;
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
     }
     public void initPlayer(Hero hero)
     {
+        SpriteRenderer.sprite = hero.PlayerLook;
         Hero = hero;
         Joystick.OnActive = pressActive;
         Joystick.OnUltimate = pressUltimate;
@@ -50,8 +52,7 @@ public class Player : MonoBehaviour
     {
         if (GameManager.Instance.isEnoughEnergy(Hero.Active.Damage))
         {
-            Fire.Instance.FireOn(transform, Vector2.up, 5);
-            Debug.Log("Abbility");
+            Fire.Instance.FireOn(Hero.Active.Bullet, transform, Vector2.up, 5);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

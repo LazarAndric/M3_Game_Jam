@@ -95,6 +95,7 @@ public class Hero
     public string Name;
     public string Description;
     public Texture2D ClassIcon;
+    public Sprite PlayerLook;
 
     public Spell BasicAttack;
     public Spell Passive;
@@ -114,6 +115,7 @@ public class Spell
 {
     public string Name;
     public string Description;
+    public Bullet Bullet;
     public Texture2D SpellIcon;
     public int Damage;
     public int EnergyCost;
