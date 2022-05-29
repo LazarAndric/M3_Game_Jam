@@ -22,18 +22,30 @@ public class GameManager : MonoBehaviour
     public int MovemnetSpeed;
     public static GameManager Instance;
     public List<Hero> Heroes = new List<Hero>();
+    public float timer = 5;
+    public float time = 5;
+    int numberOfShield = 0;
+    public Spell Ultimate;
+    public bool isInit;
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
 
     }
-    private void Start()
-    {
-        initPlayers(5,3,Heroes[0], Heroes[1]);
-    }
     private void Update()
     {
+        if (!isInit) return;
+        if (numberOfShield>0)
+        {
+            timer -= Time.deltaTime;
+        }
+        if(timer<=0)
+        {
+            timer = time;
+            numberOfShield--;
+            removeLife();
+        }
         if(Life<=0)
         {
             die();
@@ -43,7 +55,8 @@ public class GameManager : MonoBehaviour
             if(Vector2.Distance(Player1.transform.position, Player2.transform.position) < DistanceForUltimate)
             {
                 Energy = 0;
-                Debug.Log("Ultimate");
+                Fire.Instance.FireOn(Ultimate.Type, Ultimate.AoeRadius, Ultimate.AoeDamage, Ultimate.Sprite, (Player1.transform.position + Player2.transform.position)/2, Vector2.up, 5);
+
                 Player1.IsPressed = false;
                 Player2.IsPressed = false;
             }
@@ -52,12 +65,15 @@ public class GameManager : MonoBehaviour
 
     private void die()
     {
-        Time.timeScale = 0;
-        Debug.Log("you are dead!");
+        isInit = false;
+        GameOverUi.Instance.GameOver();
     }
-
-    public void initPlayers(int speed, int lifes, Hero heroClass, Hero heroClass1)
+    public void initPlayers(int speed, int lifes, int index0, int index1)
     {
+        isInit = true;
+        var heroClass = HeroHolder.Instance.getHero(index0);
+        var heroClass1 = HeroHolder.Instance.getHero(index1);
+        Ultimate = UltimateSpellHolder.Instance.getUltimate(heroClass.Class, heroClass1.Class);
         MovemnetSpeed = speed;
         Life = lifes;
         Life += heroClass.Passive.ExtraLife + heroClass.Passive.ExtraLife;
@@ -66,20 +82,30 @@ public class GameManager : MonoBehaviour
         MovemnetSpeed += heroClass.Passive.MovementSpeed + heroClass1.Passive.MovementSpeed;
         Shield = heroClass.Passive.Sheild + heroClass1.Passive.Sheild;
         if (Shield != 0)
+        {
+            numberOfShield++;
             UiHandler.Instance.AddShield(Shield);
+
+        }
 
         Player1.initPlayer(heroClass);
         Player2.initPlayer(heroClass1);
     }
+    public void removeLife()
+    {
+        if (numberOfShield != 0)
+            numberOfShield--;
+        else Life--;
+        UiHandler.Instance.RemuveLife();
+    }
     public bool isEnoughEnergy(int energy)
     {
-        bool isEnough = false;
         if (Energy >= energy)
         {
             Energy -= energy;
-            isEnough = true;
+            return true;
         }
-        return isEnough;
+        return false;
     }
 }
 public enum HeroClass
@@ -102,6 +128,7 @@ public class Hero
     public Texture2D ClassIcon;
     public Sprite Sprite;
 
+    public HeroClass Class;
     public Spell BasicAttack;
     public Spell Passive;
     public Spell Active;
@@ -128,7 +155,9 @@ public class Spell
     public int Sheild;
     public int MovementSpeed;
     public int ExtraLife;
-    public int Collider;
+    public BulletType Type;
+    public float AoeRadius;
+    public int AoeDamage;
 
     public Spell(int movementSpeed, string name, string description, Texture2D spellIcon, int damage, int energyCost, int shield, int extraLife)
     {

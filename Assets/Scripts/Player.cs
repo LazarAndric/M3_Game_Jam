@@ -18,16 +18,16 @@ public class Player : MonoBehaviour
     {
         Hero = hero;
         Sprite.sprite = Hero.Sprite;
-        Joystick.OnActive = pressActive;
-        Joystick.OnUltimate = pressUltimate;
-        Joystick.OnUpdateAxis = updatePosition;
-        Joystick.OffUltimate = pressOffUltimate;
-        Joystick.OnBasic = basicAttack;
+        Joystick.OnActive += pressActive;
+        Joystick.OnUltimate += pressUltimate;
+        Joystick.OnUpdateAxis += updatePosition;
+        Joystick.OffUltimate += pressOffUltimate;
+        Joystick.OnBasic += basicAttack;
     }
 
     private void basicAttack()
     {
-        Fire.Instance.FireOn(Hero.BasicAttack.Sprite , transform, Vector2.up, 5);
+        Fire.Instance.FireOn(Hero.BasicAttack.Type, Hero.BasicAttack.AoeRadius, Hero.BasicAttack.AoeDamage, Hero.BasicAttack.Sprite , transform.position, Vector2.up, 5);
         Debug.Log("Basic");
     }
 
@@ -41,7 +41,8 @@ public class Player : MonoBehaviour
         Joystick.OnActive -= pressActive;
         Joystick.OnUltimate -= pressUltimate;
         Joystick.OnUpdateAxis -= updatePosition;
-        Joystick.OffUltimate += pressOffUltimate;
+        Joystick.OffUltimate -= pressOffUltimate;
+        Joystick.OnBasic -= basicAttack;
     }
 
     private void updatePosition(Vector2 position)
@@ -57,19 +58,19 @@ public class Player : MonoBehaviour
 
     public void pressActive()
     {
-        if (GameManager.Instance.isEnoughEnergy(Hero.Active.Damage))
+        if (GameManager.Instance.isEnoughEnergy(Hero.Active.EnergyCost))
         {
-            Fire.Instance.FireOn(Hero.Active.Sprite, transform, Vector2.up, 5);
+            Fire.Instance.FireOn(Hero.Active.Type, Hero.Active.AoeRadius, Hero.Active.AoeDamage, Hero.Active.Sprite, transform.position, Vector2.up, 5);
             Debug.Log("Abbility");
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy") && GameManager.Instance.isInit)
         {
-            UiHandler.Instance.RemuveLife();
-            GameManager.Instance.Life--;
+            GameManager.Instance.removeLife();
+            Destroy(collision.GetComponent<Enemy>().gameObject);
         }
     }
 

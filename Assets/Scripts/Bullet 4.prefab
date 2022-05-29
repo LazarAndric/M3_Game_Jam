@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 9125218387807386208}
   - component: {fileID: 3238621403425261858}
   - component: {fileID: 1529916793590270724}
+  - component: {fileID: 8462762103583276472}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Bullet 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +33,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4675886484191344232}
+  - {fileID: 5863486156099262929}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 384407224, guid: 12bdb08fac66ef649a33919c04f2e458, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,9 +106,9 @@ MonoBehaviour:
   Damage: 10
   Speed: 0
   Direction: {x: 0, y: 0, z: 0}
-  Collider: {fileID: 0}
+  Collider: {fileID: 8462762103583276472}
   BulletType: 0
-  Effect: {fileID: 8522236497938330779}
+  Effect: {fileID: 7493511067931925282}
 --- !u!61 &3238621403425261858
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -155,7 +156,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1001 &8940851210601744171
+--- !u!58 &8462762103583276472
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9125218387807386223}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.1}
+  serializedVersion: 2
+  m_Radius: 0.3
+--- !u!1001 &7903558557855393938
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -212,15 +229,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33a4278cb151f934b8a74c7449882061, type: 3}
---- !u!4 &4675886484191344232 stripped
+--- !u!4 &5863486156099262929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4391112122823586115, guid: 33a4278cb151f934b8a74c7449882061, type: 3}
-  m_PrefabInstance: {fileID: 8940851210601744171}
+  m_PrefabInstance: {fileID: 7903558557855393938}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8522236497938330779 stripped
+--- !u!114 &7493511067931925282 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 743472441148470192, guid: 33a4278cb151f934b8a74c7449882061, type: 3}
-  m_PrefabInstance: {fileID: 8940851210601744171}
+  m_PrefabInstance: {fileID: 7903558557855393938}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1

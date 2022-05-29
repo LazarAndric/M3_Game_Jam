@@ -5,29 +5,37 @@ using UnityEngine.UI;
 
 public class MainMeniUi : MonoBehaviour
 {
-
-
+    public GameObject Panel;
+    public GameObject OverScreen;
     public Image selctor0;
     public Image selctor1;
 
     public List<GameObject> playerPositions = new List<GameObject>();
+    public static MainMeniUi Instance;
 
-
-
-
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+    public void startGameover()
+    {
+        GameManager.Instance.isInit = false;
+        OverScreen.SetActive(true);
+        Panel.SetActive(true);
+    }
 
     public int index0 = 0;
     public int index1 = 2;
 
     public void Play()
     {
-
+        GameManager.Instance.initPlayers(5, 3, index0, index1);
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Joystick1Button3))
         {
             index0++;

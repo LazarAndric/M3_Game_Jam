@@ -7,13 +7,19 @@ public class Bullet : MonoBehaviour
     public int Damage;
     public int Speed;
     public Vector3 Direction;
-    public void initBullet(int speed, Vector2 direction, string enemyTag, string dissapearTag, int damage)
+    public CircleCollider2D Collider;
+    public BulletType BulletType;
+    public Effect Effect;
+    public void initBullet(BulletType type, float colliderRadius, int aoeDamage,int speed, Vector2 direction, string enemyTag, string dissapearTag, int damage)
     {
+        Effect.Damage = aoeDamage;
+        BulletType = type;
         Speed = speed;
         Direction = direction;
         Damage = damage;
         EnemyTag = enemyTag;
         DissapearTag = dissapearTag;
+        Collider.radius = colliderRadius;
     }
     private void Update()
     {
@@ -30,7 +36,18 @@ public class Bullet : MonoBehaviour
             var enemy = collision.GetComponent<Enemy>();
             enemy.Health -= Damage;
 
-            Destroy(gameObject);
+            if(BulletType== BulletType.AOE)
+            {
+                Effect.gameObject.SetActive(true);
+            }
+            if(BulletType != BulletType.DEATH_BULLET)
+                Destroy(gameObject);
         }
     }
+}
+public enum BulletType
+{
+    Classic,
+    AOE,
+    DEATH_BULLET
 }
