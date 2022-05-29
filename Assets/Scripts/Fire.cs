@@ -15,10 +15,10 @@ public class Fire : MonoBehaviour
         }
     }
 
-    public void FireOn(Bullet obj, Transform parent, Vector2 direction, int speed)
+    public void FireOn(BulletType type, float aoeRadius, int aoeDamage,  Bullet obj, Vector3 position, Vector2 direction, int speed)
     {
         var b = Instantiate(obj);
-        b.transform.position = parent.position;
-        b.initBullet(speed, direction, EnemyTag, DissapearingTag, 10);
+        b.transform.position = position;
+        b.initBullet(type, aoeRadius, aoeDamage, speed, direction, EnemyTag, DissapearingTag, 10);
     }
 }
