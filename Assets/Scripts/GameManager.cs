@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         MovemnetSpeed = speed;
         Life = lifes;
         Life += heroClass.Passive.ExtraLife + heroClass.Passive.ExtraLife;
-        Energy+=heroClass.Passive.Ener
+        Energy += heroClass.Passive.Energy + heroClass.Passive.Energy;
         UiHandler.Instance.AddLife(Life);
         MovemnetSpeed += heroClass.Passive.MovementSpeed + heroClass1.Passive.MovementSpeed;
         Shield = heroClass.Passive.Sheild + heroClass1.Passive.Sheild;
