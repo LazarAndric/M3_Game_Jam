@@ -11,6 +11,16 @@ public class PlayAudio : MonoBehaviour
     public AudioSource TANKactive;
     public AudioSource Ultimate;
 
+    public static PlayAudio Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
     void Start()
     {
         inGame.Play();

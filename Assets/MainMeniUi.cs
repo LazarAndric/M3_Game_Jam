@@ -36,7 +36,7 @@ public class MainMeniUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button3))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             index0++;
             if (index0 > 2)
@@ -54,7 +54,7 @@ public class MainMeniUi : MonoBehaviour
             selctor0.transform.position = playerPositions[index0].transform.position;
 
         }
-        if (Input.GetKeyDown(KeyCode.Joystick2Button3))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             index1++;
             

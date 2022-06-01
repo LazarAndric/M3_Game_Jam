@@ -27,7 +27,8 @@ public class Player : MonoBehaviour
 
     private void basicAttack()
     {
-        Fire.Instance.FireOn(Hero.BasicAttack.Type, Hero.BasicAttack.AoeRadius, Hero.BasicAttack.AoeDamage, Hero.BasicAttack.Sprite , transform.position, Vector2.up, 5);
+        PlayAudio.Instance.basicAttack.Play();
+        Fire.Instance.FireOn(Hero.BasicAttack.Type, Hero.BasicAttack.AoeRadius, Hero.BasicAttack.AoeDamage, Hero.BasicAttack.Sprite, transform.position, Vector2.up, 5);
         Debug.Log("Basic");
     }
 
@@ -36,14 +37,13 @@ public class Player : MonoBehaviour
         IsPressed = false;
     }
 
-    private void OnDisable()
-    {
-        Joystick.OnActive -= pressActive;
-        Joystick.OnUltimate -= pressUltimate;
-        Joystick.OnUpdateAxis -= updatePosition;
-        Joystick.OffUltimate -= pressOffUltimate;
-        Joystick.OnBasic -= basicAttack;
-    }
+    //private void OnDisable()
+    //{
+    //    Joystick.OnActive -= pressActive;
+    //    Joystick.OnUltimate -= pressUltimate;
+    //    Joystick.OnUpdateAxis -= updatePosition;
+    //    Joystick.OffUltimate += pressOffUltimate;
+    //}
 
     private void updatePosition(Vector2 position)
     {
@@ -58,10 +58,17 @@ public class Player : MonoBehaviour
 
     public void pressActive()
     {
-        if (GameManager.Instance.isEnoughEnergy(Hero.Active.EnergyCost))
+        if (GameManager.Instance.isEnoughEnergy(Hero.Active.Damage) && Hero.Class!=HeroClass.SUP)
         {
             Fire.Instance.FireOn(Hero.Active.Type, Hero.Active.AoeRadius, Hero.Active.AoeDamage, Hero.Active.Sprite, transform.position, Vector2.up, 5);
             Debug.Log("Abbility");
+        }
+        if(GameManager.Instance.isEnoughEnergy(Hero.Active.Damage) && Hero.Class == HeroClass.SUP)
+        {
+            GameManager.Instance.Shield +=Hero.Active.Sheild;
+            GameManager.Instance.numberOfShield+=Hero.Active.Sheild;
+            GameManager.Instance.Energy-=Hero.Active.EnergyCost;
+            UiHandler.Instance.AddShield(1);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

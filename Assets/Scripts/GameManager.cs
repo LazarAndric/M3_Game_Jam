@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public List<Hero> Heroes = new List<Hero>();
     public float timer = 5;
     public float time = 5;
-    int numberOfShield = 0;
+    public int numberOfShield = 0;
     public Spell Ultimate;
     public bool isInit;
     private void Awake()
@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
     }
     public void initPlayers(int speed, int lifes, int index0, int index1)
     {
+        MovemnetSpeed = 0;
+        Score = 0;
         isInit = true;
         var heroClass = HeroHolder.Instance.getHero(index0);
         var heroClass1 = HeroHolder.Instance.getHero(index1);
